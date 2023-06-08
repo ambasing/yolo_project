@@ -1,4 +1,4 @@
-# YOLOv5 🚀 by Ultralytics, AGPL-3.0 license
+# YOLOv5 🚀 by , AGPL-3.0 license
 """
 Train a YOLOv5 classifier model on a classification dataset
 
@@ -80,7 +80,7 @@ def train(opt, device):
             if str(data) == 'imagenet':
                 subprocess.run(['bash', str(ROOT / 'data/scripts/get_imagenet.sh')], shell=True, check=True)
             else:
-                url = f'https://github.com/ultralytics/yolov5/releases/download/v1.0/{data}.zip'
+                url = f'https://github.com/ambasing/yolov5/releases/download/v1.0/{data}.zip'
                 download(url, dir=data_dir.parent)
             s = f"Dataset download success ✅ ({time.time() - t:.1f}s), saved to {colorstr('bold', data_dir)}\n"
             LOGGER.info(s)
@@ -112,7 +112,7 @@ def train(opt, device):
         elif opt.model in torchvision.models.__dict__:  # TorchVision models i.e. resnet50, efficientnet_b0
             model = torchvision.models.__dict__[opt.model](weights='IMAGENET1K_V1' if pretrained else None)
         else:
-            m = hub.list('ultralytics/yolov5')  # + hub.list('pytorch/vision')  # models
+            m = hub.list('ambasing/yolov5')  # + hub.list('pytorch/vision')  # models
             raise ModuleNotFoundError(f'--model {opt.model} not found. Available models are: \n' + '\n'.join(m))
         if isinstance(model, DetectionModel):
             LOGGER.warning("WARNING ⚠️ pass YOLOv5 classifier model with '-cls' suffix, i.e. '--model yolov5s-cls.pt'")
@@ -254,7 +254,7 @@ def train(opt, device):
                     f'\nPredict:         python classify/predict.py --weights {best} --source im.jpg'
                     f'\nValidate:        python classify/val.py --weights {best} --data {data_dir}'
                     f'\nExport:          python export.py --weights {best} --include onnx'
-                    f"\nPyTorch Hub:     model = torch.hub.load('ultralytics/yolov5', 'custom', '{best}')"
+                    f"\nPyTorch Hub:     model = torch.hub.load('ambasing/yolov5', 'custom', '{best}')"
                     f'\nVisualize:       https://netron.app\n')
 
         # Plot examples
